@@ -56,9 +56,9 @@ export default function Portal({ data }: DataProps) {
           <strong className="border-b border-gray-500 w-full text-center py-2">Editar</strong>
           {data.response.map(empresa => {
             return (
-              <div className="flex border-b w-full justify-center items-center gap-10">
+              <div key={empresa._id} className="flex border-b w-full justify-center items-center gap-10">
                 <Link href={`/edit/${empresa._id}`}>
-                  <p className="text-center py-2 transition-colors hover:text-blue-600 cursor-pointer" key={empresa._id}>Editar</p>
+                  <p className="text-center py-2 transition-colors hover:text-blue-600 cursor-pointer">Editar</p>
                 </Link>
                 <TrashSimple onClick={() => handleDel(empresa._id)} size={20} className="transition-colors cursor-pointer hover:text-red-600"/>
               </div>
