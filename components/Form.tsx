@@ -10,8 +10,8 @@ export default function Form() {
   const [Endereco, setEndereco] = useState('')
   const [Numero, setNumero] = useState('')
   const [Bairro, setBairro] = useState('')
-  const [Cidade, setCidade] = useState('')
   const [selectUf, setSelectUf] = useState('')
+  const [Cidade, setCidade] = useState('')
 
   const { estados } = useEstados()
   const { cidades, loading: loadingCidades } = useCidades(selectUf);
