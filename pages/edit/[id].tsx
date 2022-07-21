@@ -1,5 +1,7 @@
 import axios from "axios"
 import { GetStaticPaths, GetStaticProps } from "next"
+import { useRouter } from "next/router"
+import { TrashSimple } from "phosphor-react"
 import { FormEvent, useEffect, useState } from "react"
 import { useCidades } from "../../hooks/useCidades"
 import { useEstados } from "../../hooks/useEstados"
@@ -25,6 +27,7 @@ interface ResponseProps {
 }
 
 export default function Edit({response}:ResponseProps) {
+  const router = useRouter()
   const [CNPJ, setCNPJ] = useState('')
   const [Nome, setNome] = useState('')
   const [CEP, setCEP] = useState('')
@@ -60,9 +63,15 @@ export default function Edit({response}:ResponseProps) {
   }
 
   async function handleSubmit(e: FormEvent) {
+    
     e.preventDefault()
     await axios.put(`http://localhost:3000/api/${response.response._id}`, MyQyery)
-    history.back()
+    router.push('/portal')
+  }
+
+  async function handleDelete() {
+    await axios.delete(`http://localhost:3000/api/${response.response._id}`)
+    router.push('/portal')
   }
 
   function handleCancel() {
@@ -80,14 +89,14 @@ export default function Edit({response}:ResponseProps) {
     <div className="p-10">
       <h1 className="w-full bg-gray-100 px-3">Formulário de Cadastro</h1>
       <form onSubmit={handleSubmit} className="border border-gray-100 grid grid-rows-4 grid-flow-col p-10">
-        <input value={CNPJ} onChange={e => setCNPJ(e.target.value)} placeholder="CNPJ" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" name="cpf" maxLength={14} />
-        <input value={Nome} onChange={e => setNome(e.target.value)} placeholder="Nome da Empresa" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
-        <input value={CEP} onChange={e => setCEP(e.target.value)} placeholder="CEP" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" maxLength={8} />
-        <input value={Endereco} onChange={e => setEndereco(e.target.value)} placeholder="Endereço" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
-        <input value={Numero} onChange={e => setNumero(e.target.value)} placeholder="Número" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
-        <input value={Bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
+        <input required value={CNPJ} onChange={e => setCNPJ(e.target.value)} placeholder="CNPJ" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" name="cpf" maxLength={14} />
+        <input required value={Nome} onChange={e => setNome(e.target.value)} placeholder="Nome da Empresa" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
+        <input required value={CEP} onChange={e => setCEP(e.target.value)} placeholder="CEP" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" maxLength={8} />
+        <input required value={Endereco} onChange={e => setEndereco(e.target.value)} placeholder="Endereço" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
+        <input required value={Numero} onChange={e => setNumero(e.target.value)} placeholder="Número" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
+        <input required value={Bairro} onChange={e => setBairro(e.target.value)} placeholder="Bairro" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" />
         <div>
-          <select value={selectUf} onChange={e => setSelectUf(e.target.value)} className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" name="" id="">
+          <select required value={selectUf} onChange={e => setSelectUf(e.target.value)} className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" name="" id="">
             <option disabled value={''}>Selecione Seu Estado</option>
             {estados.map(estado => {
               return (
@@ -95,7 +104,7 @@ export default function Edit({response}:ResponseProps) {
               )
             })}
           </select>
-          <select value={Cidade} onChange={e => setCidade(e.target.value)} className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" disabled={loadingCidades} name="" id="">
+          <select required value={Cidade} onChange={e => setCidade(e.target.value)} className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" disabled={loadingCidades} name="" id="">
             <option disabled value={''}>Selecione Sua Cidade</option>
             {cidades.map(cidade => {
               return (
@@ -104,9 +113,10 @@ export default function Edit({response}:ResponseProps) {
             })}
           </select>
         </div>
-        <div className="flex gap-5">
+        <div className="flex items-center gap-5">
           <button onClick={handleCancel} className="bg-gray-400 p-3 rounded-lg w-24 transition-colors hover:bg-red-600" type="button">Cancelar</button>
           <button className="bg-green-500 p-3 rounded-lg w-24 transition-colors hover:bg-green-600" type="submit">Salvar</button>
+          <TrashSimple onClick={handleDelete} className="bg-red-600 cursor-pointer p-2 rounded-lg transition-colors hover:bg-red-700" size={45}/>
         </div>
       </form>
     </div>
