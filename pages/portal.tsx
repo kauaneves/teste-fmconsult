@@ -1,7 +1,6 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { TrashSimple } from 'phosphor-react';
 import Form from "../components/Form";
 
 interface ObjProps {
@@ -22,11 +21,6 @@ interface DataProps {
 }
 
 export default function Portal({ data }: DataProps) {
-
-  async function handleDel(id: any) {
-    await axios.delete(`http://localhost:3000/api/${id}`)
-    location.reload()
-  }
 
   return (
     <>
@@ -60,7 +54,6 @@ export default function Portal({ data }: DataProps) {
                 <Link href={`/edit/${empresa._id}`}>
                   <p className="text-center py-2 transition-colors hover:text-blue-600 cursor-pointer">Editar</p>
                 </Link>
-                <TrashSimple onClick={() => handleDel(empresa._id)} size={20} className="transition-colors cursor-pointer hover:text-red-600"/>
               </div>
             )
           })}
