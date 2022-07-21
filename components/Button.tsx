@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { ButtonHTMLAttributes, ClassAttributes } from "react"
+import { ButtonHTMLAttributes } from "react"
 
-type Props = JSX.IntrinsicAttributes & ClassAttributes<HTMLButtonElement> & ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = & ButtonHTMLAttributes<HTMLButtonElement> & {
   title: string
 }
 
