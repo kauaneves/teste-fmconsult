@@ -1,5 +1,6 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import Form from "../components/Form";
 
 interface ObjProps {
@@ -41,6 +42,17 @@ export default function Portal({ data }: DataProps) {
           {data.response.map(empresa => {
             return (
               <p className="border-b w-full text-center py-2" key={empresa._id}>{empresa.Nome}</p>
+            )
+          })}
+        </div>
+
+        <div className="bg-gray-100 w-1/2 flex items-center border-l border-gray-500 flex-col">
+          <strong className="border-b border-gray-500 w-full text-center py-2">Editar</strong>
+          {data.response.map(empresa => {
+            return (
+              <Link href={`/edit/${empresa._id}`}>
+                <p className="border-b w-full text-center py-2 transition-colors hover:text-blue-600 cursor-pointer" key={empresa._id}>Editar</p>
+              </Link>
             )
           })}
         </div>
