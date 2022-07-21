@@ -24,12 +24,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
     res.status(200).json({ response })
+    
   } else if (req.method === 'GET') {
 
     const { db } = await connect()
     const response = await db.collection('Empresas').find().toArray()
 
     res.status(200).json({response})
+
   } else {
     res.status(400).json({Error: 'Wrong Method Request.'})
   }

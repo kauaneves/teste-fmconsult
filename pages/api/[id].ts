@@ -25,11 +25,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await db.collection('Empresas').findOne({_id: myid})
 
     res.status(200).json({response})
+
   } else if (req.method === 'PUT') {
     const { db } = await connect()
     const response = await db.collection('Empresas').replaceOne({_id: myid}, MyQuery)
 
     res.status(200).json({response})
+    
   } else if (req.method === 'DELETE') {
     const { db } = await connect()
     const response = db.collection('Empresas').deleteOne({_id: myid})
