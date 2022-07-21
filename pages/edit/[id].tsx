@@ -77,7 +77,7 @@ export default function Edit({response}:ResponseProps) {
   }
 
   return (
-    <>
+    <div className="p-10">
       <h1 className="w-full bg-gray-100 px-3">Formulário de Cadastro</h1>
       <form onSubmit={handleSubmit} className="border border-gray-100 grid grid-rows-4 grid-flow-col p-10">
         <input value={CNPJ} onChange={e => setCNPJ(e.target.value)} placeholder="CNPJ" className="rounded-lg border border-gray-300 mb-3 mx-3 p-1 placeholder:text-gray-600" type="text" name="cpf" maxLength={14} />
@@ -109,7 +109,7 @@ export default function Edit({response}:ResponseProps) {
           <button className="bg-green-500 p-3 rounded-lg w-24 transition-colors hover:bg-green-600" type="submit">Salvar</button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 
