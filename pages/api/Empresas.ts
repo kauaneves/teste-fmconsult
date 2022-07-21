@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   if (req.method === 'POST') {
 
-    const MyQyery = {
+    const MyQuery = {
       CNPJ,
       Nome,
       CEP,
@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const { db } = await connect()
 
-    const response = await db.collection('Empresas').insertOne(MyQyery)
+    const response = await db.collection('Empresas').insertOne(MyQuery)
 
 
     res.status(200).json({ response })
